@@ -56,8 +56,8 @@ class Player{
         this.noseX = canvasWidth / 2 + 15;
         this.noseY = canvasHeight / 2;
     }
-    Rotate(dir) {
-        this.angle += this.rotateSpeed * dir;
+    Rotate() {
+        this.angle += this.rotateSpeed;
     }
     Update() {
         let radians = this.angle / Math.PI * 180;
@@ -103,8 +103,8 @@ class Bullet{
         this.x = player.noseX;
         this.y = player.noseY;
         this.angle = angle;
-        this.height = 4;
-        this.width = 4;
+        this.height = 5;
+        this.width = 5;
         this.speed = 5;
     }
     Update(){
@@ -206,7 +206,7 @@ function Render() {
 
     ctx.fillStyle = 'white';
     ctx.font = '21px Arial';
-    ctx.fillText("SCORE : " + score.toString(), 20, 35);
+    ctx.fillText("SCORE : " + score.toString(), 1260, 50);
 
     if(lives <= 0){
         document.body.removeEventListener("keydown", HandleKeyDown);
