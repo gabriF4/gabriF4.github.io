@@ -112,8 +112,8 @@ class Player{
 class Bullet{
     constructor(angle) {
         this.visible = true;
-        this.x = ship.noseX;
-        this.y = ship.noseY;
+        this.x = player.noseX;
+        this.y = player.noseY;
         this.angle = angle;
         this.height = 4;
         this.width = 4;
