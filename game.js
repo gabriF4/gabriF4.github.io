@@ -56,8 +56,8 @@ class Player{
         this.noseX = canvasWidth / 2 + 15;
         this.noseY = canvasHeight / 2;
     }
-    Rotate() {
-        this.angle += this.rotateSpeed;
+    Rotate(dir) {
+        this.angle += this.rotateSpeed * dir;
     }
     Update() {
         let radians = this.angle / Math.PI * 180;
