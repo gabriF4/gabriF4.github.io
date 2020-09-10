@@ -195,10 +195,10 @@ function DrawLifeShips(){
 function Render() {
     player.move = (keys[38]);
  
-    if (keys[39]) {
+    if (keys[37]) {
         player.Rotate(1);
     }
-    if (keys[37]) {
+    if (keys[39]) {
        player.Rotate(-1);
     }
    
