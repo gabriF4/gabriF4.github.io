@@ -8,32 +8,24 @@ let bullets = [];
 let asteroids = [];
 let score = 0;
 let lives = 3;
-let highScore;
-let localStorageName = "HighScore";
+let highScore = 0;
  
-document.addEventListener('DOMContentLoaded', SetupCanvas);
+document.addEventListener('DOMContentLoaded', Canvas);
  
-function SetupCanvas(){
+function Canvas(){
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
     player = new Player();
  
-    for(let i = 0; i < 8; i++){
+    for(let i = 0; i < 5; i++){
         asteroids.push(new Asteroid());
     }
 
     document.body.addEventListener("keydown", HandleKeyDown);
     document.body.addEventListener("keyup", HandleKeyUp);
-
-    if (localStorage.getItem(localStorageName) == null) {
-        highScore = 0;
-    } else {
-        highScore = localStorage.getItem(localStorageName);
-    }
  
     Render();
 }
@@ -53,7 +45,7 @@ class Player{
         this.visible = true;
         this.x = canvasWidth / 2;
         this.y = canvasHeight / 2;
-        this.movingForward = false;
+        this.move = false;
         this.speed = 0.1;
         this.velX = 0;
         this.velY = 0;
@@ -64,13 +56,13 @@ class Player{
         this.noseX = canvasWidth / 2 + 15;
         this.noseY = canvasHeight / 2;
     }
-    Rotate(dir) {
-        this.angle += this.rotateSpeed * dir;
+    Rotate() {
+        this.angle += this.rotateSpeed;
     }
     Update() {
         let radians = this.angle / Math.PI * 180;
 
-        if (this.movingForward) {
+        if (this.move) {
             this.velX += Math.cos(radians) * this.speed;
             this.velY += Math.sin(radians) * this.speed;
         }   
@@ -93,14 +85,11 @@ class Player{
         this.y -= this.velY;
     }
     Draw() {
-        ctx.strokeStyle = this.strokeColor;
         ctx.beginPath();
         let vertAngle = ((Math.PI * 2) / 3);
- 
         let radians = this.angle / Math.PI * 180;
         this.noseX = this.x - this.radius * Math.cos(radians);
         this.noseY = this.y - this.radius * Math.sin(radians);
- 
         for (let i = 0; i < 3; i++) {
             ctx.lineTo(this.x - this.radius * Math.cos(vertAngle * i + radians), this.y - this.radius * Math.sin(vertAngle * i + radians));
         }
@@ -111,15 +100,12 @@ class Player{
  
 class Bullet{
     constructor(angle) {
-        this.visible = true;
         this.x = player.noseX;
         this.y = player.noseY;
         this.angle = angle;
         this.height = 4;
         this.width = 4;
         this.speed = 5;
-        this.velX = 0;
-        this.velY = 0;
     }
     Update(){
         let radians = this.angle / Math.PI * 180;
@@ -134,7 +120,6 @@ class Bullet{
  
 class Asteroid{
     constructor(x,y,radius,level,collisionRadius) {
-        this.visible = true;
         this.x = x || Math.floor(Math.random() * canvasWidth);
         this.y = y || Math.floor(Math.random() * canvasHeight);
         this.speed = 3;
@@ -208,12 +193,12 @@ function DrawLifeShips(){
 }
  
 function Render() {
-    player.movingForward = (keys[87]);
+    player.move = (keys[30]);
  
-    if (keys[68]) {
+    if (keys[17]) {
         player.Rotate(1);
     }
-    if (keys[65]) {
+    if (keys[16]) {
        player.Rotate(-1);
     }
    
@@ -298,11 +283,6 @@ loop1:
             asteroids[j].Draw(j);
         }
     }
-
-    highScore = Math.max(score, highScore);
-    localStorage.setItem(localStorageName, highScore);
-    ctx.font = '21px Arial';
-    ctx.fillText("HIGH SCORE : " + highScore.toString(), 20, 70);
  
     requestAnimationFrame(Render);
 }

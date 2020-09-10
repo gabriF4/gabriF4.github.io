@@ -1,10 +1,6 @@
 body{
     background-color: rgb(128,122,122);
 }
-#container {
-    max-width: 1400px;
-    margin: auto;
-}
 #myCanvas {
     background-color: #000;   
 }
