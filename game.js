@@ -3,12 +3,11 @@ let ctx;
 let canvasWidth = 1400;
 let canvasHeight = 1000;
 let keys = [];
-let ship;
+let player;
 let bullets = [];
 let asteroids = [];
 let score = 0;
 let lives = 3;
-
 let highScore;
 let localStorageName = "HighScore";
  
@@ -21,7 +20,7 @@ function SetupCanvas(){
     canvas.height = canvasHeight;
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ship = new Ship();
+    player = new Player();
  
     for(let i = 0; i < 8; i++){
         asteroids.push(new Asteroid());
@@ -45,11 +44,11 @@ function HandleKeyDown(e){
 function HandleKeyUp(e){
     keys[e.keyCode] = false;
     if (e.keyCode === 32){
-        bullets.push(new Bullet(ship.angle));
+        bullets.push(new Bullet(player.angle));
     }
 }
  
-class Ship {
+class Player{
     constructor() {
         this.visible = true;
         this.x = canvasWidth / 2;
@@ -209,13 +208,13 @@ function DrawLifeShips(){
 }
  
 function Render() {
-    ship.movingForward = (keys[87]);
+    player.movingForward = (keys[87]);
  
     if (keys[68]) {
-        ship.Rotate(1);
+        player.Rotate(1);
     }
     if (keys[65]) {
-       ship.Rotate(-1);
+       player.Rotate(-1);
     }
    
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -228,17 +227,17 @@ function Render() {
         document.body.removeEventListener("keydown", HandleKeyDown);
         document.body.removeEventListener("keyup", HandleKeyUp);
  
-        ship.visible = false;
+        player.visible = false;
         ctx.fillStyle = 'white';
         ctx.font = '50px Arial';
         ctx.fillText("GAME OVER", canvasWidth / 2 - 150, canvasHeight / 2);
     }
 
     if(asteroids.length === 0){
-        ship.x = canvasWidth / 2;
-        ship.y = canvasHeight / 2;
-        ship.velX = 0;
-        ship.velY = 0;
+        player.x = canvasWidth / 2;
+        player.y = canvasHeight / 2;
+        player.velX = 0;
+        player.velY = 0;
         for(let i = 0; i < 8; i++){
             let asteroid = new Asteroid();
             asteroid.speed += .5;
@@ -250,11 +249,11 @@ function Render() {
 
     if (asteroids.length !== 0) {
         for(let k = 0; k < asteroids.length; k++){
-            if(CircleCollision(ship.x, ship.y, 11, asteroids[k].x, asteroids[k].y, asteroids[k].collisionRadius)){
-                ship.x = canvasWidth / 2;
-                ship.y = canvasHeight / 2;
-                ship.velX = 0;
-                ship.velY = 0;
+            if(CircleCollision(player.x, player.y, 11, asteroids[k].x, asteroids[k].y, asteroids[k].collisionRadius)){
+                player.x = canvasWidth / 2;
+                player.y = canvasHeight / 2;
+                player.velX = 0;
+                player.velY = 0;
                 lives -= 1;
             }
         }
@@ -282,9 +281,9 @@ loop1:
         }
     }
  
-    if(ship.visible){
-        ship.Update();
-        ship.Draw();
+    if(player.visible){
+        player.Update();
+        player.Draw();
     }
     
     if (bullets.length !== 0) {
