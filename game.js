@@ -248,4 +248,3 @@ function render(){
     }
     requestAnimationFrame(render);
 }
-game();
