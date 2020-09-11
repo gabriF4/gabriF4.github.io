@@ -8,7 +8,7 @@ let asteroids = [];
 let keys = [];
 let score = 0;
 let lives = 3;
- 
+
 function game(){
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
@@ -34,6 +34,7 @@ function keyUp(i){
         bullets.push(new Bullet(player.angle));
     }
 }
+
 function collision(ax, ay, r1, bx, by, r2){
     let dx = ax - bx;
     let dy = ay - by;
@@ -161,8 +162,8 @@ class Bullet{
 }
  
 function render(){
+
     player.move = (keys[38]);
- 
     if (keys[13]){
        window.location.reload();
     }
@@ -172,7 +173,7 @@ function render(){
     if (keys[37]){
        player.rotate(-1);
     }
-   
+    
     ctx.clearRect(0, 0, canvasW, canvasH);
     ctx.fillStyle = 'white';
     ctx.font = '30px Lucida Console';
