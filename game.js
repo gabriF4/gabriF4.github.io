@@ -177,10 +177,10 @@ function render(){
     ctx.clearRect(0, 0, canvasW, canvasH);
     ctx.fillStyle = 'white';
     ctx.font = '30px Lucida Console';
-    ctx.fillText("SCORE : " + score.toString(), 1220, 50);
+    ctx.fillText("SCORE : " + score.toString(), 1200, 50);
     ctx.fillStyle = 'white';
     ctx.font = '30px Lucida Console';
-    ctx.fillText("LIVES : " + lives.toString(), 1220, 100);
+    ctx.fillText("LIVES : " + lives.toString(), 1200, 100);
 
     if(lives <= 0){
         document.body.removeEventListener("keydown", keyDown);
