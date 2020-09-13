@@ -11,17 +11,14 @@ function game(){
     this.ctx = canvas.getContext("2d");
     this.canvasW = 1500;
     this.canvasH = 900;
-    this.canvas.width = this.canvasW;
-    this.canvas.height = this.canvasH;
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
 
     player = new Player();
-    for(let i = 0; i < 8; i++){
+    for(let i = 0; i < 6; i++){
         obstacles.push(new Obstacle());
     }
-
-    window.setTimeout("render()", 5000);
+    render();
 }
 
 function keyDown(i){
@@ -33,7 +30,6 @@ function keyUp(i){
         bullets.push(new Bullet(player.angle));
     }
 }
-
 function collision(ax, ay, r1, bx, by, r2){
     let dx = ax - bx;
     let dy = ay - by;
@@ -202,22 +198,20 @@ function render(){
             obstacles.push(obstacle);
         }
     }
-    if (obstacles.length != 0 && bullets.length != 0){
-        for(let i = 0; i < obstacles.length; i++){
-            for(let j = 0; j < bullets.length; j++){
-                if(collision(bullets[j].x, bullets[j].y, bullets[j].width, obstacles[i].x, obstacles[i].y, obstacles[i].collisionRadius)){
-                    if(obstacles[i].size == 1){
-                        obstacles.push(new Obstacle(obstacles[i].x - 5, obstacles[i].y - 5, 30, 2, 27));
-                        obstacles.push(new Obstacle(obstacles[i].x + 5, obstacles[i].y + 5, 30, 2, 27));
-                    } else if(obstacles[i].size == 2){
-                        obstacles.push(new Obstacle(obstacles[i].x - 5, obstacles[i].y - 5, 20, 3, 17));
-                        obstacles.push(new Obstacle(obstacles[i].x + 5, obstacles[i].y + 5, 20, 3, 17));
-                    }
-                    obstacles.splice(i,1);
-                    bullets.splice(j,1);
-                    score += 10;
-                    break;
+    for(let i = 0; i < obstacles.length; i++){
+        for(let j = 0; j < bullets.length; j++){
+            if(collision(bullets[j].x, bullets[j].y, bullets[j].width, obstacles[i].x, obstacles[i].y, obstacles[i].collisionRadius)){
+                if(obstacles[i].size == 1){
+                    obstacles.push(new Obstacle(obstacles[i].x - 5, obstacles[i].y - 5, 30, 2, 27));
+                    obstacles.push(new Obstacle(obstacles[i].x + 5, obstacles[i].y + 5, 30, 2, 27));
+                } else if(obstacles[i].size == 2){
+                    obstacles.push(new Obstacle(obstacles[i].x - 5, obstacles[i].y - 5, 20, 3, 17));
+                    obstacles.push(new Obstacle(obstacles[i].x + 5, obstacles[i].y + 5, 20, 3, 17));
                 }
+                obstacles.splice(i,1);
+                bullets.splice(j,1);
+                score += 10;
+                break;
             }
         }
     }
