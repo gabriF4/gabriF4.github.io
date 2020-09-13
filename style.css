@@ -1,6 +1,12 @@
 body{
     background-color: rgb(128,122,122);
 }
-#myCanvas {
-    background-color: #000;   
+#space {
+    background-color: #000;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; 
 }
