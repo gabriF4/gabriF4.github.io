@@ -5,7 +5,6 @@ let keys = [];
 let score = 0;
 let lives = 3;
 
-window.addEventListener("click", game);
 function game(){
     var canvas = document.getElementById("space");
     this.canvas = canvas;
@@ -22,7 +21,7 @@ function game(){
         obstacles.push(new Obstacle());
     }
 
-    render();
+    window.setTimeout("render()", 5000);
 }
 
 function keyDown(i){
