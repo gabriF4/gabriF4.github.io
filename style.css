@@ -2,7 +2,7 @@ body{
     background-color: rgb(128,122,122);
 }
 #space {
-    background-color: #000;
+	background-image: url("./img/space_image.png");
     position: absolute;
     margin: auto;
     top: 0;
